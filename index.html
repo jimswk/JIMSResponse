@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="ms" class="scroll-smooth">
+<html lang="ms">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borang Maklum Balas - Hari Bertemu Pelanggan JIM Sarawak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Hari Bertemu Pelanggan - JIM Sarawak</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans & Orbitron untuk Tajuk Futuristik / Teknologi -->
+
+    <!-- Google Fonts: Orbitron & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Swal (SweetAlert2) untuk popup estetik -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -26,241 +26,208 @@
                         tech: ['"Orbitron"', 'sans-serif'],
                     },
                     colors: {
-                        jim: {
-                            blue: '#0d1b3e',
-                            dark: '#080d21',
-                            gold: '#fbbf24',
-                            green: '#00c853',
-                            greenHover: '#00e676',
+                        cyber: {
+                            bg: '#050b14',
+                            card: '#0a192f',
+                            accent: '#0284c7',
+                            neon: '#22d3ee',
+                            lime: '#00c853',
                         }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Skrol bar tersuai */
+        /* Skrol bar tersuai mesra mudah alih */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #080d21;
+            background: #050b14;
         }
         ::-webkit-scrollbar-thumb {
-            background: #2563eb;
-            border-radius: 3px;
+            background: #0284c7;
+            border-radius: 10px;
         }
 
-        /* Corak grid teknologi digital mengikut inspirasi latar belakang poster */
-        .tech-bg {
-            background-color: #040817;
-            background-image: 
-                radial-gradient(circle at 50% 35%, rgba(30, 58, 138, 0.45) 0%, transparent 75%),
-                radial-gradient(rgba(59, 130, 246, 0.12) 1px, transparent 0);
-            background-size: 100% 100%, 24px 24px;
-            background-position: center, 0 0;
+        /* Kesan gaya emoji */
+        .emoji {
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: grayscale(80%) opacity(0.5);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .emoji:hover, .emoji:active {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.18);
+        }
+        .emoji.clicked {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.28);
+            animation: pulse-ring 0.6s ease-out;
+        }
+        .emoji.disabled {
+            filter: grayscale(100%) opacity(0.25);
+            pointer-events: none;
         }
 
-        /* Gaya Emoji Interaktif */
-        .emoji-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
+        @keyframes pulse-ring {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1.28); }
         }
-        
-        .emoji-btn {
+
+        /* Frame peranti mudah alih khusus (iPhone 14 Pro Max / 430px x 932px) */
+        .mobile-frame {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 40px rgba(2, 132, 199, 0.25);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 6px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            flex: 1;
-            user-select: none;
+            justify-content: space-between;
         }
 
-        .emoji-btn .emoji-icon {
-            font-size: 28px;
-            transition: transform 0.25s ease;
-        }
-
-        .emoji-btn .emoji-label {
-            font-size: 9px;
-            font-weight: 600;
-            color: #94a3b8;
-            margin-top: 6px;
-            text-align: center;
-            line-height: 1.1;
-        }
-
-        .emoji-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: rgba(96, 165, 250, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .emoji-btn.clicked {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(29, 78, 216, 0.6));
-            border-color: #60a5fa;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-            transform: scale(1.06);
-        }
-
-        .emoji-btn.clicked .emoji-icon {
-            transform: scale(1.25);
-        }
-
-        .emoji-btn.clicked .emoji-label {
-            color: #ffffff;
-        }
-
-        .emoji-btn.disabled {
-            opacity: 0.35;
-            filter: grayscale(80%);
-            transform: scale(0.95);
-        }
-
-        /* Animasi Pop-up Melenting */
-        .bounce {
-            animation: bounce 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
-            40% { transform: translateY(-20px) scale(1.1); }
-            60% { transform: translateY(-10px) scale(1.05); }
-        }
-
-        /* Butang Mulakan Bercahaya */
-        .glow-btn {
-            box-shadow: 0 0 20px rgba(0, 200, 83, 0.6);
-            transition: all 0.3s ease;
-        }
-        .glow-btn:hover {
-            box-shadow: 0 0 30px rgba(0, 230, 118, 0.9);
-            transform: scale(1.03);
+        @media (min-height: 932px) and (min-width: 431px) {
+            .mobile-frame {
+                min-height: 932px;
+                height: 932px;
+                border-radius: 2rem;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 1px solid rgba(34, 211, 238, 0.2);
+            }
         }
     </style>
 </head>
-<body class="tech-bg text-slate-100 font-sans antialiased min-h-screen flex items-center justify-center p-2 sm:p-4 selection:bg-blue-500 selection:text-white">
 
-    <!-- OVERLAY GELAP UNTUK MODAL & POPUP -->
-    <div id="overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden transition-opacity duration-300"></div>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex items-center justify-center p-0 md:p-4 selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- WADAH APLIKASI UTAMA -->
-    <div class="w-full max-w-md mx-auto relative min-h-[92vh] flex flex-col justify-between my-auto">
+    <!-- KONSOL BINGKAI MOBILE UTAMA (UKURAN TARGET: iPhone 14 Pro Max 430px x 932px) -->
+    <div class="mobile-frame bg-cyber-bg relative overflow-y-auto">
 
-        <!-- ================= 1. SKRIN PENGENALAN (INTRO POPUP) ================= -->
-        <div id="introPopup" class="relative z-10 flex flex-col items-center justify-between text-center p-6 my-auto min-h-[85vh] rounded-3xl bg-slate-900/60 border border-slate-800/80 shadow-2xl backdrop-blur-xl overflow-hidden">
+        <!-- KANVAS ANIMASI HUJAN MATRIX -->
+        <canvas id="matrixCanvas" class="absolute inset-0 pointer-events-none z-0"></canvas>
+
+        <!-- LAYAR OVERLAY GELAP -->
+        <div id="overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-40 hidden max-w-[430px] mx-auto"></div>
+
+        <!-- ========================================== -->
+        <!-- 1. POPUP / SKRIN INTRO PELANGGAN           -->
+        <!-- ========================================== -->
+        <div id="introPopup" class="relative z-10 flex flex-col justify-between items-center min-h-[932px] h-full p-6 text-center">
             
-            <!-- Canvas Litar Grid Futuristik -->
-            <canvas id="circuitCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
-
-            <!-- Garis Hiasan Ambient Cahaya -->
-            <div class="absolute -top-20 -left-20 w-48 h-48 bg-blue-600/30 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
-
-            <!-- Logo Rasmi JIM Sarawak -->
-            <div class="mt-4 flex flex-col items-center z-10 relative">
-                <img src="https://ik.imagekit.io/487xv3vag/Layer%202.png" alt="Logo Jabatan Imigresen Malaysia" class="h-28 sm:h-32 w-auto object-contain">
+            <!-- Bahagian Atas: Logo Rasmi -->
+            <div class="pt-8 flex flex-col items-center">
+                <img src="https://ik.imagekit.io/487xv3vag/Layer%202.png" 
+                     alt="Logo Jabatan Imigresen Malaysia" 
+                     class="h-28 w-auto object-contain mb-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-bold bg-cyan-950/60 px-3 py-1 rounded-full border border-cyan-500/30">
+                    Sistem Maklum Balas Pelanggan
+                </span>
             </div>
 
-            <!-- Tajuk Poster Hari Bertemu Pelanggan -->
-            <div class="my-6 space-y-3 z-10 relative">
-                <h1 class="font-tech text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-cyan-300 drop-shadow-[0_0_18px_rgba(34,211,238,0.7)] tracking-wider uppercase leading-snug px-2">
+            <!-- Bahagian Tengah: Tajuk & Huraian -->
+            <div class="my-auto space-y-4 px-2">
+                <h1 class="font-tech text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-200 to-white drop-shadow-[0_0_18px_rgba(34,211,238,0.7)] leading-tight">
                     Hari Bertemu Pelanggan
                 </h1>
-                <div class="h-[2px] w-28 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto my-2"></div>
-                <p class="text-xs sm:text-sm font-bold tracking-widest text-slate-200 uppercase leading-relaxed px-4">
-                    Sempena Sambutan Hari Imigresen Malaysia <br><span class="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]">Peringkat Negeri Sarawak</span>
+                
+                <p class="text-xs uppercase tracking-widest text-slate-300 font-bold leading-relaxed px-2">
+                    Sempena Sambutan Hari Imigresen Malaysia Peringkat Negeri Sarawak
+                </p>
+
+                <div class="w-12 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto my-4"></div>
+
+                <p class="text-[11px] text-slate-400 italic leading-relaxed px-4">
+                    Pandangan anda keutamaan kami. Bantu kami meningkatkan kualiti perkhidmatan Imigresen dengan melengkapkan borang ringkas ini.
                 </p>
             </div>
 
-            <!-- Penerangan Ringkas -->
-            <div class="bg-blue-950/50 p-4 rounded-2xl border border-cyan-500/30 mb-6 text-xs text-slate-200 leading-relaxed max-w-xs z-10 relative backdrop-blur-md shadow-lg">
-                Pandangan dan penilaian anda amat berharga bagi membantu kami meningkatkan kualiti perkhidmatan Jabatan Imigresen Malaysia Negeri Sarawak.
-            </div>
-
-            <!-- Butang Mula -->
-            <div class="mb-4 w-full px-4 z-10 relative">
-                <button onclick="showForm()" class="glow-btn w-full py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-slate-950 font-black text-lg tracking-widest uppercase rounded-2xl active:scale-95 transition-all flex items-center justify-center space-x-2">
-                    <span>MULAKAN</span>
-                    <i class="fa-solid fa-arrow-right text-base"></i>
+            <!-- Bahagian Bawah: Butang Mulakan -->
+            <div class="pb-10 w-full px-4">
+                <button onclick="showForm()" 
+                        class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-black text-sm uppercase tracking-widest rounded-2xl shadow-[0_0_25px_rgba(16,185,129,0.4)] active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2">
+                    <span>Mulakan Borang</span>
+                    <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
                 </button>
             </div>
         </div>
 
-        <!-- ================= 2. WADAH BORANG UTAMA (FORM CONTAINER) ================= -->
-        <div id="formContainer" class="hidden relative z-10 my-auto bg-slate-900/90 rounded-3xl border border-slate-800 shadow-2xl backdrop-blur-xl overflow-hidden flex flex-col justify-between">
-            
-            <!-- Header Ringkas Borang -->
-            <div class="bg-gradient-to-r from-slate-950 via-blue-950 to-slate-950 p-5 border-b border-slate-800/80 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <img src="https://ik.imagekit.io/487xv3vag/Layer%202.png" alt="Logo JIM" class="h-10 w-auto">
-                    <div>
-                        <h2 class="text-xs uppercase tracking-widest text-blue-400 font-bold">Kajian Kepuasan Pelanggan</h2>
-                        <p class="text-[10px] text-slate-400">JIM Negeri Sarawak</p>
-                    </div>
+        <!-- ========================================== -->
+        <!-- 2. WADAH UTAMA BORANG (FORM CONTAINER)     -->
+        <!-- ========================================== -->
+        <div id="formContainer" class="relative z-10 min-h-[932px] p-5 hidden flex flex-col justify-between">
+
+            <!-- BAR PENUNJUK LANGKAH (STEP PROGRESS BAR) -->
+            <div class="mb-4 pt-2">
+                <div class="flex justify-between items-center text-[10px] uppercase font-bold tracking-widest mb-1.5">
+                    <span id="stepTitleText" class="text-cyan-400">Bahagian A: Maklumat Diri</span>
+                    <span id="stepPercentText" class="text-slate-400">Langkah 1/2</span>
                 </div>
-                <!-- Indikator Langkah -->
-                <div class="text-right">
-                    <span id="stepBadge" class="inline-block px-3 py-1 bg-blue-600/30 border border-blue-500/40 text-blue-300 text-[10px] font-bold rounded-full">Langkah 1 daripada 2</span>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-cyan-400 w-1/2 transition-all duration-500 shadow-[0_0_10px_#22d3ee]"></div>
                 </div>
             </div>
 
-            <!-- BAHAGIAN A: MAKLUMAT DIRI & URUSAN -->
-            <div id="nameSection" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-                <div class="border-b border-slate-800 pb-2">
-                    <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-                        <i class="fa-solid fa-user-gear text-blue-400"></i>
-                        <span>BAHAGIAN A: Demografi & Jenis Urusan</span>
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mt-0.5">Sila lengkapkan maklumat diri anda di bawah.</p>
-                </div>
+            <!-- ========================================== -->
+            <!-- BAHAGIAN A: DEMOGRAFI & URUSAN             -->
+            <!-- ========================================== -->
+            <div id="nameSection" class="space-y-3.5 my-auto overflow-y-auto max-h-[760px] pr-1">
 
-                <!-- 1. Nama Penuh -->
+                <!-- Nama Penuh -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1" for="namaPenuh">Nama Penuh <span class="text-red-400">*</span></label>
-                    <input type="text" id="namaPenuh" required class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="Contoh: Ahmad Bin Abdullah">
+                    <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="namaPenuh">
+                        1. Nama Penuh <span class="text-rose-400">*</span>
+                    </label>
+                    <input type="text" id="namaPenuh" required 
+                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder-slate-500" 
+                           placeholder="Contoh: Ahmad Bin Mohamad">
                 </div>
 
-                <!-- Grid 2 Kolum untuk Jantina & Umur -->
-                <div class="grid grid-cols-2 gap-3">
-                    <!-- 3. Jantina -->
+                <!-- Jantina & Umur (2 Kolum) -->
+                <div class="grid grid-cols-2 gap-2.5">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1" for="jantina">Jantina <span class="text-red-400">*</span></label>
-                        <select id="jantina" required class="w-full px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="jantina">
+                            2. Jantina <span class="text-rose-400">*</span>
+                        </label>
+                        <select id="jantina" required class="w-full px-3 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                             <option value="">-- Pilih --</option>
                             <option value="Lelaki">Lelaki</option>
                             <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
-
-                    <!-- 4. Umur -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1" for="umur">Umur <span class="text-red-400">*</span></label>
-                        <select id="umur" required class="w-full px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="umur">
+                            3. Umur <span class="text-rose-400">*</span>
+                        </label>
+                        <select id="umur" required class="w-full px-3 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                             <option value="">-- Pilih --</option>
-                            <option value="Bawah 20 Tahun">Bawah 20 Tahun</option>
-                            <option value="20 - 29 Tahun">20 - 29 Tahun</option>
-                            <option value="30 - 39 Tahun">30 - 39 Tahun</option>
-                            <option value="40 - 49 Tahun">40 - 49 Tahun</option>
-                            <option value="50 - 59 Tahun">50 - 59 Tahun</option>
-                            <option value="60 Tahun & Ke Atas">60 Tahun & Ke Atas</option>
+                            <option value="Bawah 18 tahun">Bawah 18</option>
+                            <option value="18 - 25 tahun">18 - 25 tahun</option>
+                            <option value="26 - 35 tahun">26 - 35 tahun</option>
+                            <option value="36 - 50 tahun">36 - 50 tahun</option>
+                            <option value="51 tahun ke atas">51 tahun ke atas</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Grid 2 Kolum untuk Bangsa & Status Pekerjaan -->
-                <div class="grid grid-cols-2 gap-3">
-                    <!-- 5. Bangsa -->
+                <!-- Bangsa & Status Perkahwinan (2 Kolum) -->
+                <div class="grid grid-cols-2 gap-2.5">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1" for="bangsa">Bangsa <span class="text-red-400">*</span></label>
-                        <select id="bangsa" required class="w-full px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="bangsa">
+                            4. Bangsa <span class="text-rose-400">*</span>
+                        </label>
+                        <select id="bangsa" required class="w-full px-3 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                             <option value="">-- Pilih --</option>
                             <option value="Melayu">Melayu</option>
                             <option value="Cina">Cina</option>
@@ -271,11 +238,26 @@
                             <option value="Lain-lain">Lain-lain</option>
                         </select>
                     </div>
-
-                    <!-- 6. Status Pekerjaan -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1" for="statusPekerjaan">Pekerjaan <span class="text-red-400">*</span></label>
-                        <select id="statusPekerjaan" required class="w-full px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="statusPerkahwinan">
+                            5. Perkahwinan <span class="text-rose-400">*</span>
+                        </label>
+                        <select id="statusPerkahwinan" required class="w-full px-3 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
+                            <option value="">-- Pilih --</option>
+                            <option value="Bujang">Bujang</option>
+                            <option value="Berkahwin">Berkahwin</option>
+                            <option value="Duda/Janda">Duda/Janda</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Pekerjaan & Pendidikan (2 Kolum) -->
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="statusPekerjaan">
+                            6. Pekerjaan <span class="text-rose-400">*</span>
+                        </label>
+                        <select id="statusPekerjaan" required class="w-full px-3 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                             <option value="">-- Pilih --</option>
                             <option value="Sektor Awam">Sektor Awam</option>
                             <option value="Sektor Swasta">Sektor Swasta</option>
@@ -285,42 +267,31 @@
                             <option value="Tidak Bekerja">Tidak Bekerja</option>
                         </select>
                     </div>
-                </div>
-
-                <!-- Grid 2 Kolum untuk Pendidikan & Perkahwinan -->
-                <div class="grid grid-cols-2 gap-3">
-                    <!-- 7. Tahap Pendidikan -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1" for="tahapPendidikan">Pendidikan <span class="text-red-400">*</span></label>
-                        <select id="tahapPendidikan" required class="w-full px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="tahapPendidikan">
+                            7. Pendidikan <span class="text-rose-400">*</span>
+                        </label>
+                        <select id="tahapPendidikan" required class="w-full px-3 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                             <option value="">-- Pilih --</option>
-                            <option value="SPM / Setaraf">SPM / Setaraf</option>
-                            <option value="STPM / Diploma">STPM / Diploma</option>
+                            <option value="SPM / Setaraf">SPM / STPM</option>
+                            <option value="Diploma">Diploma</option>
                             <option value="Ijazah Sarjana Muda">Ijazah Sarjana Muda</option>
-                            <option value="Sarjana / PhD">Sarjana / PhD</option>
+                            <option value="Sarjana / PhD">Master / PhD</option>
                             <option value="Lain-lain">Lain-lain</option>
                         </select>
                     </div>
-
-                    <!-- 8. Status Perkahwinan -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1" for="statusPerkahwinan">Status <span class="text-red-400">*</span></label>
-                        <select id="statusPerkahwinan" required class="w-full px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
-                            <option value="">-- Pilih --</option>
-                            <option value="Bujang">Bujang</option>
-                            <option value="Berkahwin">Berkahwin</option>
-                            <option value="Duda / Janda">Duda / Janda</option>
-                        </select>
-                    </div>
                 </div>
 
-                <!-- 9. Negeri / Kediaman -->
+                <!-- Negeri Asal -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1" for="negeri">Negeri Kediaman <span class="text-red-400">*</span></label>
-                    <select id="negeri" required class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                    <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="negeri">
+                        8. Negeri Asal <span class="text-rose-400">*</span>
+                    </label>
+                    <select id="negeri" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                         <option value="">-- Pilih Negeri --</option>
                         <option value="Sarawak" selected>Sarawak</option>
                         <option value="Sabah">Sabah</option>
+                        <option value="WP Labuan">WP Labuan</option>
                         <option value="Johor">Johor</option>
                         <option value="Kedah">Kedah</option>
                         <option value="Kelantan">Kelantan</option>
@@ -333,330 +304,213 @@
                         <option value="Selangor">Selangor</option>
                         <option value="Terengganu">Terengganu</option>
                         <option value="WP Kuala Lumpur">WP Kuala Lumpur</option>
-                        <option value="WP Labuan">WP Labuan</option>
                         <option value="WP Putrajaya">WP Putrajaya</option>
-                        <option value="Warganegara Asing">Warganegara Asing</option>
                     </select>
                 </div>
 
-                <!-- 10. Kekerapan Berurusan -->
+                <!-- Kekerapan Urusan -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1" for="kekerapan">Kekerapan Berurusan <span class="text-red-400">*</span></label>
-                    <select id="kekerapan" required class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                    <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="kekerapan">
+                        9. Kekerapan Urusan <span class="text-rose-400">*</span>
+                    </label>
+                    <select id="kekerapan" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                         <option value="">-- Pilih Kekerapan --</option>
                         <option value="Pertama Kali">Pertama Kali</option>
-                        <option value="2 - 3 Kali">2 - 3 Kali</option>
-                        <option value="Lebih 3 Kali">Lebih 3 Kali</option>
+                        <option value="2 - 3 Kali Sebulan">2 - 3 Kali Sebulan</option>
+                        <option value="Lebih 3 Kali Sebulan">Lebih 3 Kali Sebulan</option>
                     </select>
                 </div>
 
-                <!-- 11. Jenis Urusan -->
+                <!-- Jenis Urusan -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1" for="jenisUrusan">Jenis Urusan Hari Ini <span class="text-red-400">*</span></label>
-                    <select id="jenisUrusan" required onchange="toggleJenisUrusanLain()" class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all">
+                    <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="jenisUrusan">
+                        10. Jenis Urusan <span class="text-rose-400">*</span>
+                    </label>
+                    <select id="jenisUrusan" required onchange="toggleLainLainUrusan(this.value)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400">
                         <option value="">-- Pilih Jenis Urusan --</option>
-                        <option value="Pasport / Dokumen Perjalanan">Pasport / Dokumen Perjalanan</option>
-                        <option value="Pas Lawatan / Permit Kerja">Pas Lawatan / Permit Kerja</option>
-                        <option value="Visa / Khidmat Express">Visa / Khidmat Express</option>
-                        <option value="Penguatkuasaan / Siasatan">Penguatkuasaan / Siasatan</option>
-                        <option value="Pertanyaan / Khidmat Pelanggan">Pertanyaan / Khidmat Pelanggan</option>
+                        <option value="Permohonan Pasport / Dokumen Perjalanan">Permohonan Pasport / Dokumen Perjalanan</option>
+                        <option value="Permohonan Visa / Pas / Permit">Permohonan Visa / Pas / Permit</option>
+                        <option value="Pemeriksaan Kawalan Sempadan">Pemeriksaan Kawalan Sempadan</option>
+                        <option value="Khidmat Pertanyaan / Aduan">Khidmat Pertanyaan / Aduan</option>
                         <option value="Lain-lain Urusan">Lain-lain Urusan</option>
                     </select>
-
-                    <!-- Medan Tambahan Nyatakan Urusan -->
-                    <div id="jenisUrusanLainContainer" class="hidden mt-2">
-                        <label class="block text-[11px] font-semibold text-cyan-400 mb-1" for="jenisUrusanLain">Sila Nyatakan Jenis Urusan <span class="text-red-400">*</span></label>
-                        <input type="text" id="jenisUrusanLain" class="w-full px-4 py-2 rounded-xl bg-slate-950/80 border border-cyan-500/50 text-slate-100 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Contoh: Permohonan Pas Sempadan">
-                    </div>
                 </div>
 
-                <!-- Butang Ke Langkah Seterusnya -->
-                <div class="pt-4">
-                    <button onclick="showFeedback()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg active:scale-98 flex items-center justify-center space-x-2">
-                        <span>SETERUSNYA: PENILAIAN</span>
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                <!-- Input Dinamik untuk Lain-lain Urusan -->
+                <div id="lainLainUrusanContainer" class="hidden transition-all duration-300">
+                    <label class="block text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1" for="nyatakanUrusan">
+                        Sila Nyatakan Urusan Anda <span class="text-rose-400">*</span>
+                    </label>
+                    <input type="text" id="nyatakanUrusan" 
+                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/50 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder-slate-500" 
+                           placeholder="Tulis urusan anda di sini...">
+                </div>
+
+                <!-- Butang Seterusnya -->
+                <div class="pt-3 pb-4">
+                    <button onclick="showFeedback()" 
+                            class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-sky-600 text-slate-950 font-black text-xs uppercase tracking-widest rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.3)] active:scale-95 transition-all flex items-center justify-center space-x-2">
+                        <span>Seterusnya (Bahagian B)</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
                     </button>
                 </div>
+
             </div>
 
-            <!-- BAHAGIAN B: PENILAIAN KATEGORI & CADANGAN -->
-            <div id="feedbackSection" class="hidden p-6 space-y-5 max-h-[70vh] overflow-y-auto">
-                <div class="border-b border-slate-800 pb-2">
-                    <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-                        <i class="fa-solid fa-star text-amber-400"></i>
-                        <span>BAHAGIAN B: Penilaian Tahap Kepuasan</span>
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mt-0.5">Sila sentuh emoji bagi menggambarkan penilaian anda.</p>
+            <!-- ========================================== -->
+            <!-- BAHAGIAN B: PENILAIAN EMOJI & CADANGAN     -->
+            <!-- ========================================== -->
+            <div id="feedbackSection" class="hidden space-y-4 my-auto overflow-y-auto max-h-[760px] pr-1">
+                
+                <div class="bg-cyan-950/40 p-3 rounded-xl border border-cyan-500/20 text-center">
+                    <p class="text-xs text-cyan-300 font-bold uppercase tracking-wider">Bahagian B: Penilaian Perkhidmatan</p>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Sila sentuh emoji mengikut tahap kepuasan anda.</p>
                 </div>
 
                 <!-- Kategori 1: Mutu Perkhidmatan -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-200 mb-2">1. Mutu Perkhidmatan Utama <span class="text-red-400">*</span></label>
-                    <div class="emoji-group emojis" data-category="perkhidmatan">
-                        <div class="emoji-btn emoji" onclick="selectRating('perkhidmatan', 'Sangat Tidak Memuaskan', '😡')">
-                            <span class="emoji-icon">😡</span>
-                            <span class="emoji-label">Sangat Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('perkhidmatan', 'Tidak Memuaskan', '🙁')">
-                            <span class="emoji-icon">🙁</span>
-                            <span class="emoji-label">Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('perkhidmatan', 'Sederhana', '😐')">
-                            <span class="emoji-icon">😐</span>
-                            <span class="emoji-label">Sederhana</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('perkhidmatan', 'Memuaskan', '🙂')">
-                            <span class="emoji-icon">🙂</span>
-                            <span class="emoji-label">Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('perkhidmatan', 'Sangat Memuaskan', '😍')">
-                            <span class="emoji-icon">😍</span>
-                            <span class="emoji-label">Sangat Memuaskan</span>
-                        </div>
+                <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                    <p class="text-[11px] font-bold text-slate-200 uppercase tracking-wider mb-2 text-center">
+                        1. Mutu Perkhidmatan Keseluruhan <span class="text-rose-400">*</span>
+                    </p>
+                    <div class="emojis flex justify-around items-center" data-category="perkhidmatan">
+                        <span class="emoji" onclick="selectRating('perkhidmatan', 'Sangat Tidak Memuaskan', '😡')">😡</span>
+                        <span class="emoji" onclick="selectRating('perkhidmatan', 'Tidak Memuaskan', '🙁')">🙁</span>
+                        <span class="emoji" onclick="selectRating('perkhidmatan', 'Sederhana', '😐')">😐</span>
+                        <span class="emoji" onclick="selectRating('perkhidmatan', 'Memuaskan', '🙂')">🙂</span>
+                        <span class="emoji" onclick="selectRating('perkhidmatan', 'Sangat Memuaskan', '😍')">😍</span>
                     </div>
                 </div>
 
-                <!-- Kategori 2: Layanan Pegawai/Anggota -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-200 mb-2">2. Layanan Pegawai & Anggota Bertugas <span class="text-red-400">*</span></label>
-                    <div class="emoji-group emojis" data-category="layanan">
-                        <div class="emoji-btn emoji" onclick="selectRating('layanan', 'Sangat Tidak Memuaskan', '😡')">
-                            <span class="emoji-icon">😡</span>
-                            <span class="emoji-label">Sangat Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('layanan', 'Tidak Memuaskan', '🙁')">
-                            <span class="emoji-icon">🙁</span>
-                            <span class="emoji-label">Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('layanan', 'Sederhana', '😐')">
-                            <span class="emoji-icon">😐</span>
-                            <span class="emoji-label">Sederhana</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('layanan', 'Memuaskan', '🙂')">
-                            <span class="emoji-icon">🙂</span>
-                            <span class="emoji-label">Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('layanan', 'Sangat Memuaskan', '😍')">
-                            <span class="emoji-icon">😍</span>
-                            <span class="emoji-label">Sangat Memuaskan</span>
-                        </div>
+                <!-- Kategori 2: Layanan Pegawai -->
+                <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                    <p class="text-[11px] font-bold text-slate-200 uppercase tracking-wider mb-2 text-center">
+                        2. Mesra & Kesopanan Layanan Pegawai <span class="text-rose-400">*</span>
+                    </p>
+                    <div class="emojis flex justify-around items-center" data-category="layanan">
+                        <span class="emoji" onclick="selectRating('layanan', 'Sangat Tidak Memuaskan', '😡')">😡</span>
+                        <span class="emoji" onclick="selectRating('layanan', 'Tidak Memuaskan', '🙁')">🙁</span>
+                        <span class="emoji" onclick="selectRating('layanan', 'Sederhana', '😐')">😐</span>
+                        <span class="emoji" onclick="selectRating('layanan', 'Memuaskan', '🙂')">🙂</span>
+                        <span class="emoji" onclick="selectRating('layanan', 'Sangat Memuaskan', '😍')">😍</span>
                     </div>
                 </div>
 
                 <!-- Kategori 3: Kejelasan Penerangan -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-200 mb-2">3. Kejelasan Maklumat & Penerangan <span class="text-red-400">*</span></label>
-                    <div class="emoji-group emojis" data-category="penerangan">
-                        <div class="emoji-btn emoji" onclick="selectRating('penerangan', 'Sangat Tidak Memuaskan', '😡')">
-                            <span class="emoji-icon">😡</span>
-                            <span class="emoji-label">Sangat Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('penerangan', 'Tidak Memuaskan', '🙁')">
-                            <span class="emoji-icon">🙁</span>
-                            <span class="emoji-label">Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('penerangan', 'Sederhana', '😐')">
-                            <span class="emoji-icon">😐</span>
-                            <span class="emoji-label">Sederhana</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('penerangan', 'Memuaskan', '🙂')">
-                            <span class="emoji-icon">🙂</span>
-                            <span class="emoji-label">Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('penerangan', 'Sangat Memuaskan', '😍')">
-                            <span class="emoji-icon">😍</span>
-                            <span class="emoji-label">Sangat Memuaskan</span>
-                        </div>
+                <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                    <p class="text-[11px] font-bold text-slate-200 uppercase tracking-wider mb-2 text-center">
+                        3. Kejelasan Penerangan & Maklumat <span class="text-rose-400">*</span>
+                    </p>
+                    <div class="emojis flex justify-around items-center" data-category="penerangan">
+                        <span class="emoji" onclick="selectRating('penerangan', 'Sangat Tidak Memuaskan', '😡')">😡</span>
+                        <span class="emoji" onclick="selectRating('penerangan', 'Tidak Memuaskan', '🙁')">🙁</span>
+                        <span class="emoji" onclick="selectRating('penerangan', 'Sederhana', '😐')">😐</span>
+                        <span class="emoji" onclick="selectRating('penerangan', 'Memuaskan', '🙂')">🙂</span>
+                        <span class="emoji" onclick="selectRating('penerangan', 'Sangat Memuaskan', '😍')">😍</span>
                     </div>
                 </div>
 
                 <!-- Kategori 4: Pengalaman Keseluruhan -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-200 mb-2">4. Pengalaman Keseluruhan <span class="text-red-400">*</span></label>
-                    <div class="emoji-group emojis" data-category="pengalaman">
-                        <div class="emoji-btn emoji" onclick="selectRating('pengalaman', 'Sangat Tidak Memuaskan', '😡')">
-                            <span class="emoji-icon">😡</span>
-                            <span class="emoji-label">Sangat Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('pengalaman', 'Tidak Memuaskan', '🙁')">
-                            <span class="emoji-icon">🙁</span>
-                            <span class="emoji-label">Tidak Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('pengalaman', 'Sederhana', '😐')">
-                            <span class="emoji-icon">😐</span>
-                            <span class="emoji-label">Sederhana</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('pengalaman', 'Memuaskan', '🙂')">
-                            <span class="emoji-icon">🙂</span>
-                            <span class="emoji-label">Memuaskan</span>
-                        </div>
-                        <div class="emoji-btn emoji" onclick="selectRating('pengalaman', 'Sangat Memuaskan', '😍')">
-                            <span class="emoji-icon">😍</span>
-                            <span class="emoji-label">Sangat Memuaskan</span>
-                        </div>
+                <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                    <p class="text-[11px] font-bold text-slate-200 uppercase tracking-wider mb-2 text-center">
+                        4. Pengalaman Keseluruhan Hari Ini <span class="text-rose-400">*</span>
+                    </p>
+                    <div class="emojis flex justify-around items-center" data-category="pengalaman">
+                        <span class="emoji" onclick="selectRating('pengalaman', 'Sangat Tidak Memuaskan', '😡')">😡</span>
+                        <span class="emoji" onclick="selectRating('pengalaman', 'Tidak Memuaskan', '🙁')">🙁</span>
+                        <span class="emoji" onclick="selectRating('pengalaman', 'Sederhana', '😐')">😐</span>
+                        <span class="emoji" onclick="selectRating('pengalaman', 'Memuaskan', '🙂')">🙂</span>
+                        <span class="emoji" onclick="selectRating('pengalaman', 'Sangat Memuaskan', '😍')">😍</span>
                     </div>
                 </div>
 
-                <!-- Cadangan & Ulasan -->
+                <!-- Cadangan & Penambahbaikan -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-200 mb-1.5" for="cadangan">Cadangan / Penambahbaikan (Opsional)</label>
-                    <textarea id="cadangan" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-blue-500 transition-all resize-none" placeholder="Tulis cadangan atau pandangan anda di sini..."></textarea>
+                    <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1" for="cadangan">
+                        Cadangan / Ulasan (Opsional)
+                    </label>
+                    <textarea id="cadangan" rows="3" 
+                              class="w-full p-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition-all resize-none placeholder-slate-500" 
+                              placeholder="Kongsi pandangan atau cadangan anda..."></textarea>
                 </div>
 
-                <!-- Navigation Action Buttons -->
-                <div class="pt-2 flex items-center space-x-3">
-                    <button onclick="backToNameSection()" type="button" class="w-1/3 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-wider rounded-xl transition-all">
-                        <i class="fa-solid fa-chevron-left mr-1"></i> Kembali
+                <!-- Butang Kawalan (Kembali & Hantar) -->
+                <div class="flex space-x-2 pt-2 pb-4">
+                    <button onclick="backToNameSection()" 
+                            class="w-1/3 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-wider rounded-xl transition-all">
+                        Kembali
                     </button>
-                    <button onclick="submitFeedback()" type="button" class="w-2/3 py-3.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>HANTAR MAKLUM BALAS</span>
+                    <button onclick="submitFeedback()" 
+                            class="w-2/3 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-slate-950 font-black text-xs uppercase tracking-widest rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-95 transition-all flex items-center justify-center space-x-2">
+                        <span>Hantar Maklum Balas</span>
                     </button>
                 </div>
+
             </div>
 
         </div>
 
+        <!-- FOOTER HAK CIPTA KECIL -->
+        <footer class="relative z-10 py-3 text-center border-t border-slate-800/80 bg-slate-950/90 text-[9px] text-slate-500 uppercase tracking-widest">
+            &copy; 2026 Jabatan Imigresen Malaysia Negeri Sarawak
+        </footer>
+
     </div>
 
-    <!-- ================= 3. MODAL ERROR POPUP ================= -->
-    <div id="errorPopup" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-red-500/40 rounded-3xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
-            <div class="w-14 h-14 bg-red-500/10 text-red-400 rounded-full mx-auto flex items-center justify-center border border-red-500/30">
-                <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
-            </div>
-            <div class="space-y-1">
-                <h4 class="text-base font-bold text-white">Sila Ambil Perhatian</h4>
-                <p id="errorMessage" class="text-xs text-slate-400 leading-relaxed">Sila lengkapkan semua medan wajib!</p>
-            </div>
-            <button onclick="closeErrorPopup()" class="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all">
-                FAHAM
-            </button>
-        </div>
-    </div>
-
-    <!-- ================= 4. MODAL SUCCESS POPUP ================= -->
-    <div id="feedbackPopup" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-emerald-500/40 rounded-3xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
-            <div id="selectedEmoji" class="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-full mx-auto flex items-center justify-center border border-emerald-500/40 text-4xl shadow-inner">
-                😍
-            </div>
-            <div class="space-y-2">
-                <h4 class="text-lg font-black text-white">TERIMA KASIH!</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">Maklum balas anda telah berjaya disimpan. Sokongan anda amat kami hargai!</p>
-            </div>
-            <button onclick="resetForm()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-slate-950 font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg active:scale-95">
-                KEMBALI KE UTAMA
-            </button>
-        </div>
-    </div>
-
-    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <!-- JAVASCRIPT UNTUK INTERAKSI BORANG & MATRIX ANIMATION -->
     <script>
-        // Masukkan Google Web App Script URL di sini sekiranya dihoskan di GitHub Pages / Pelayan Web Luar
-        const GOOGLE_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyQaCnaKcPDMYYgPZv2VB5um8_-JAx44wmCJSNi49vMFY2PhWcLxnUR5nihq7MjE6CVaw/exec";
+        // URL Google Apps Script Web App (Tampal URL anda selepas deploy di sini jika guna external host)
+        const GOOGLE_SCRIPT_WEBAPP_URL = "";
 
         let userData = {};
 
-        // Animasi Canvas Hujan Nombor Matrix Futuristik untuk Skrin Intro
-        function initCyberGrid() {
-            const canvas = document.getElementById('circuitCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-
-            function resizeCanvas() {
-                canvas.width = canvas.parentElement.clientWidth;
-                canvas.height = canvas.parentElement.clientHeight;
-            }
-            resizeCanvas();
-
-            // Aksara nombor gaya Matrix
-            const numbers = '0123456789';
-            const fontSize = 15;
-            let columns = Math.floor(canvas.width / fontSize);
-            let drops = [];
-
-            function resetDrops() {
-                columns = Math.floor(canvas.width / fontSize);
-                drops = [];
-                for (let i = 0; i < columns; i++) {
-                    // Kedudukan awal rawak di atas skrin untuk variasi lajur
-                    drops[i] = Math.floor(Math.random() * -30);
-                }
-            }
-            resetDrops();
-
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                resetDrops();
-            });
-
-            function drawMatrixRain() {
-                // Lapisan pudar hitam/biru gelap untuk menghasilkan kesan ekor cahaya (fade trail)
-                ctx.fillStyle = 'rgba(4, 8, 23, 0.12)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.font = `bold ${fontSize}px "Courier New", monospace`;
-
-                for (let i = 0; i < drops.length; i++) {
-                    // Pilih nombor secara rawak
-                    const char = numbers.charAt(Math.floor(Math.random() * numbers.length));
-                    const x = i * fontSize;
-                    const y = drops[i] * fontSize;
-
-                    // Warna nombor cyan & hijau lembut tanpa kelipan putih tajam atau shadowBlur
-                    ctx.fillStyle = (i % 3 === 0) ? '#22d3ee' : '#00c853';
-                    ctx.shadowBlur = 0;
-
-                    ctx.fillText(char, x, y);
-
-                    // Reset semula ke atas sebaik sahaja mencapai bahagian bawah skrin
-                    if (y > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-
-                    drops[i]++;
-                }
-
-                requestAnimationFrame(drawMatrixRain);
-            }
-
-            drawMatrixRain();
-        }
-
+        // 1. Kawalan Penukaran Skrin
         function showForm() {
             document.getElementById('introPopup').classList.add('hidden');
-            document.getElementById('overlay').classList.add('hidden');
             document.getElementById('formContainer').classList.remove('hidden');
-            document.getElementById('nameSection').classList.remove('hidden'); 
-            document.getElementById('feedbackSection').classList.add('hidden'); 
-            document.getElementById('stepBadge').textContent = 'Langkah 1 daripada 2';
+            document.getElementById('nameSection').classList.remove('hidden');
+            document.getElementById('feedbackSection').classList.add('hidden');
+            updateProgress('A');
         }
 
-        function showErrorPopup(message) {
-            document.getElementById('errorMessage').textContent = message;
-            document.getElementById('overlay').classList.remove('hidden');
-            document.getElementById('errorPopup').classList.remove('hidden');
+        function backToNameSection() {
+            document.getElementById('feedbackSection').classList.add('hidden');
+            document.getElementById('nameSection').classList.remove('hidden');
+            updateProgress('A');
         }
 
-        function closeErrorPopup() {
-            document.getElementById('errorPopup').classList.add('hidden');
-            document.getElementById('overlay').classList.add('hidden');
+        function updateProgress(section) {
+            const stepTitle = document.getElementById('stepTitleText');
+            const stepPercent = document.getElementById('stepPercentText');
+            const progressBar = document.getElementById('progressBar');
+
+            if (section === 'A') {
+                stepTitle.innerText = "Bahagian A: Maklumat Diri";
+                stepPercent.innerText = "Langkah 1/2";
+                progressBar.style.width = "50%";
+            } else {
+                stepTitle.innerText = "Bahagian B: Penilaian Kepuasan";
+                stepPercent.innerText = "Langkah 2/2";
+                progressBar.style.width = "100%";
+            }
         }
 
-        function toggleJenisUrusanLain() {
-            const select = document.getElementById('jenisUrusan');
-            const container = document.getElementById('jenisUrusanLainContainer');
-            const input = document.getElementById('jenisUrusanLain');
-            
-            if (select.value === 'Lain-lain Urusan') {
+        // Tunjukkan input teks jika "Lain-lain Urusan" dipilih
+        function toggleLainLainUrusan(value) {
+            const container = document.getElementById('lainLainUrusanContainer');
+            const input = document.getElementById('nyatakanUrusan');
+            if (value === 'Lain-lain Urusan') {
                 container.classList.remove('hidden');
+                input.required = true;
             } else {
                 container.classList.add('hidden');
+                input.required = false;
                 input.value = '';
             }
         }
 
+        // 2. Semakan Validasi Bahagian A
         function showFeedback() {
             userData.namaPenuh = document.getElementById('namaPenuh').value.trim();
             userData.jantina = document.getElementById('jantina').value;
@@ -668,151 +522,141 @@
             userData.negeri = document.getElementById('negeri').value;
             userData.kekerapan = document.getElementById('kekerapan').value;
             
-            const jenisUrusanVal = document.getElementById('jenisUrusan').value;
-            const jenisUrusanLainVal = document.getElementById('jenisUrusanLain').value.trim();
-
-            if (jenisUrusanVal === 'Lain-lain Urusan') {
-                if (!jenisUrusanLainVal) {
-                    showErrorPopup('Sila nyatakan jenis urusan anda pada medan yang disediakan!');
-                    return;
-                }
-                userData.jenisUrusan = `Lain-lain (${jenisUrusanLainVal})`;
+            const jenisUrusanSelected = document.getElementById('jenisUrusan').value;
+            if (jenisUrusanSelected === 'Lain-lain Urusan') {
+                const rincian = document.getElementById('nyatakanUrusan').value.trim();
+                userData.jenisUrusan = rincian ? `Lain-lain (${rincian})` : '';
             } else {
-                userData.jenisUrusan = jenisUrusanVal;
+                userData.jenisUrusan = jenisUrusanSelected;
             }
 
             if (!userData.namaPenuh || !userData.jantina || !userData.umur || !userData.bangsa || 
                 !userData.statusPekerjaan || !userData.tahapPendidikan || !userData.statusPerkahwinan || 
                 !userData.negeri || !userData.kekerapan || !userData.jenisUrusan) {
-                showErrorPopup('Sila lengkapkan semua medan dalam Bahagian A!');
+                
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Maklumat Belum Lengkap',
+                    text: 'Sila lengkapkan semua medan dalam Bahagian A sebelum meneruskan!',
+                    confirmButtonColor: '#0284c7',
+                    background: '#0a192f',
+                    color: '#fff'
+                });
                 return;
             }
 
             document.getElementById('nameSection').classList.add('hidden');
             document.getElementById('feedbackSection').classList.remove('hidden');
-            document.getElementById('stepBadge').textContent = 'Langkah 2 daripada 2';
+            updateProgress('B');
         }
 
-        function backToNameSection() {
-            document.getElementById('feedbackSection').classList.add('hidden');
-            document.getElementById('nameSection').classList.remove('hidden');
-            document.getElementById('stepBadge').textContent = 'Langkah 1 daripada 2';
-        }
-
+        // 3. Pilihan Emoji Interaktif
         function selectRating(category, rating, emoji) {
-            const emojis = document.querySelectorAll(`.emojis[data-category="${category}"] .emoji`);
+            const emojiElements = document.querySelectorAll(`.emojis[data-category="${category}"] .emoji`);
             
-            // Nyahaktifkan semua emoji dalam kategori yang sama
-            emojis.forEach(el => {
+            emojiElements.forEach(el => {
                 el.classList.remove('clicked');
                 el.classList.add('disabled');
             });
-            
-            // Aktifkan emoji yang dipilih
-            const targetBtn = event.currentTarget;
-            targetBtn.classList.remove('disabled');
-            targetBtn.classList.add('clicked');
-            
-            // Simpan rating dalam userData
+
+            event.target.classList.remove('disabled');
+            event.target.classList.add('clicked');
+
             userData[category] = rating;
         }
 
+        // 4. Penghantaran Maklum Balas (Anti-Double Submit)
         function submitFeedback() {
             const submitButton = document.querySelector('#feedbackSection button:last-child');
-            
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+
             userData.perkhidmatan = userData.perkhidmatan || '';
             userData.layanan = userData.layanan || '';
             userData.penerangan = userData.penerangan || '';
             userData.pengalaman = userData.pengalaman || '';
 
             if (!userData.perkhidmatan || !userData.layanan || !userData.penerangan || !userData.pengalaman) {
-                showErrorPopup('Sila berikan penilaian untuk semua kategori dalam Bahagian B!');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Penilaian Belum Lengkap',
+                    text: 'Sila berikan penilaian emoji untuk kesemua 4 kategori di Bahagian B!',
+                    confirmButtonColor: '#0284c7',
+                    background: '#0a192f',
+                    color: '#fff'
+                });
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
                 return;
             }
 
-            // Nyahaktifkan butang hantar untuk cegah gandaan
-            submitButton.disabled = true;
-            submitButton.style.opacity = '0.5';
-            submitButton.style.cursor = 'not-allowed';
-
             userData.cadangan = document.getElementById('cadangan').value.trim();
 
-            // Panggilan SIMPAN DATA
-            saveData(userData, submitButton);
-        }
-
-        function saveData(data, submitButton) {
-            // 1. Jika dijalankan di dalam persekitaran Google Apps Script
+            // Jika dalam persekitaran Google Apps Script
             if (typeof google !== 'undefined' && google.script && google.script.run) {
                 google.script.run
-                    .withSuccessHandler(function() {
-                        showPopup();
-                    })
-                    .withFailureHandler(function(err) {
-                        console.error('Google Script Error:', err);
-                        showErrorPopup('Ralat menyimpan data: ' + err);
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.style.opacity = '1';
-                            submitButton.style.cursor = 'pointer';
-                        }
-                    })
-                    .saveFeedback(data);
+                    .withSuccessHandler(showSuccessPopup)
+                    .withFailureHandler(onFailure)
+                    .saveFeedback(userData);
             } 
-            // 2. Jika URL Google Script WebApp telah disediakan
+            // Sandaran ke Google Web App URL (External Server / GitHub Pages)
             else if (GOOGLE_SCRIPT_WEBAPP_URL !== "") {
-                const formData = new FormData();
-                for (let key in data) {
-                    formData.append(key, data[key]);
-                }
-
                 fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
                     method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
                 })
-                .then(() => {
-                    showPopup();
-                })
+                .then(() => showSuccessPopup())
                 .catch(err => {
-                    console.error('Fetch Error:', err);
-                    saveLocally(data);
-                    showPopup();
+                    console.error("Ralat hantaran:", err);
+                    showSuccessPopup();
                 });
             } 
-            // 3. Sandaran Storan Tempatan (Local Storage)
+            // Sandaran tempatan (LocalStorage)
             else {
-                saveLocally(data);
-                showPopup();
+                let localData = JSON.parse(localStorage.getItem("feedback_local") || "[]");
+                localData.push({ ...userData, timestamp: new Date().toISOString() });
+                localStorage.setItem("feedback_local", JSON.stringify(localData));
+                setTimeout(() => showSuccessPopup(), 500);
             }
         }
 
-        function saveLocally(data) {
-            let records = JSON.parse(localStorage.getItem('jim_feedback_records') || '[]');
-            records.push({ ...data, timestamp: new Date().toISOString() });
-            localStorage.setItem('jim_feedback_records', JSON.stringify(records));
+        function showSuccessPopup() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Terima Kasih!',
+                text: 'Maklum balas anda telah berjaya direkodkan. Kehadiran dan sokongan anda amat kami hargai.',
+                confirmButtonText: 'Selesai',
+                confirmButtonColor: '#10b981',
+                background: '#0a192f',
+                color: '#fff'
+            }).then(() => {
+                resetForm();
+            });
         }
 
-        function showPopup() {
-            document.getElementById('selectedEmoji').classList.add('bounce');
-            document.getElementById('overlay').classList.remove('hidden');
-            document.getElementById('feedbackPopup').classList.remove('hidden');
+        function onFailure(error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ralat Penghantaran',
+                text: 'Gagal menyimpan maklum balas. Sila cuba sekali lagi.',
+                confirmButtonColor: '#e11d48',
+                background: '#0a192f',
+                color: '#fff'
+            });
+            const submitButton = document.querySelector('#feedbackSection button:last-child');
+            submitButton.disabled = false;
+            submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
         }
 
+        // 5. Reset Borang Ke Keadaan Asal
         function resetForm() {
-            // Sembunyikan overlay dan feedbackPopup
-            document.getElementById('overlay').classList.add('hidden');
-            document.getElementById('feedbackPopup').classList.add('hidden');
-            
-            // Sembunyikan formContainer (termasuk nameSection dan feedbackSection)
             document.getElementById('formContainer').classList.add('hidden');
             document.getElementById('nameSection').classList.add('hidden');
             document.getElementById('feedbackSection').classList.add('hidden');
-            
-            // Paparkan semula introPopup
             document.getElementById('introPopup').classList.remove('hidden');
-            
-            // Reset semua input borang
+
             document.getElementById('namaPenuh').value = '';
             document.getElementById('jantina').value = '';
             document.getElementById('umur').value = '';
@@ -820,35 +664,72 @@
             document.getElementById('statusPekerjaan').value = '';
             document.getElementById('tahapPendidikan').value = '';
             document.getElementById('statusPerkahwinan').value = '';
-            document.getElementById('negeri').value = '';
+            document.getElementById('negeri').value = 'Sarawak';
             document.getElementById('kekerapan').value = '';
             document.getElementById('jenisUrusan').value = '';
-            document.getElementById('jenisUrusanLain').value = '';
-            document.getElementById('jenisUrusanLainContainer').classList.add('hidden');
+            document.getElementById('nyatakanUrusan').value = '';
+            document.getElementById('lainLainUrusanContainer').classList.add('hidden');
             document.getElementById('cadangan').value = '';
-            
-            // Reset butang hantar
+
+            userData = {};
+
+            document.querySelectorAll('.emoji').forEach(el => {
+                el.classList.remove('clicked', 'disabled');
+            });
+
             const submitButton = document.querySelector('#feedbackSection button:last-child');
             if (submitButton) {
                 submitButton.disabled = false;
-                submitButton.style.opacity = '1';
-                submitButton.style.cursor = 'pointer';
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
             }
-
-            // Reset userData
-            userData = {};
-            
-            // Pulihkan semua emoji
-            const allEmojis = document.querySelectorAll('.emoji');
-            allEmojis.forEach(emoji => {
-                emoji.classList.remove('clicked', 'disabled');
-            });
         }
 
-        // Jalankan Animasi Litar Grid Futuristik pada window load
+        // 6. Animasi Hujan Matrix (Matrix Rain Canvas)
+        function initMatrix() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const chars = '0123456789';
+            const fontSize = 12;
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(5, 11, 20, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.font = `${fontSize}px monospace`;
+
+                for (let i = 0; i < drops.length; i++) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillStyle = (i % 5 === 0) ? '#22d3ee' : '#00c853';
+
+                    const x = i * fontSize;
+                    const y = drops[i] * fontSize;
+
+                    ctx.fillText(char, x, y);
+
+                    if (y > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 40);
+        }
+
         window.onload = function() {
-            initCyberGrid();
+            initMatrix();
         };
     </script>
 </body>
+
 </html>
